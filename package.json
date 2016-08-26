@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/menpuji/express-generator-router/issues"
   },
-  "homepage": "https://github.com/menpuji/express-generator-router#readme"
+  "homepage": "https://github.com/menpuji/express-generator-router#readme",
+  "dependencies": {
+    "co": "^4.6.0",
+    "express": "^4.14.0"
+  }
 }
