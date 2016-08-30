@@ -4,7 +4,7 @@ var co = require('co');
 function forwardError(res) {
   return function(error) {
     if (!error.statusCode)
-      console.log(error.stack || error)
+      console.log(error.stack ||  error.statusMessage || error)
     if (error instanceof Error) {
       error = {
         name: error.name,
@@ -20,14 +20,13 @@ function forwardError(res) {
   }
 }
 
-function asyncRouter(router) {
+function asyncRouter(router,pararm) {
   var ret = {};
   ret.router = router;
   function addMethod(method) {
     ret[method] = function(path, handlerGenerator) {
       router[method](path, function(req, res, next) {
-        co.wrap(handlerGenerator)(req, res, next).catch(forwardError(
-          res));
+        co.wrap(handlerGenerator)(req, res, next).catch(pararm.catchhandler(res));
       });
     };
   }
@@ -38,7 +37,14 @@ function asyncRouter(router) {
 }
 
 // var router = asyncRouter(express.Router());
-var Router = function(){
-  return asyncRouter(express.Router())
+var opts = {
+    catchhandler:forwardError
+  }
 }
+
+var Router = function(pararms){
+  var opts = pararms;
+  return asyncRouter(express.Router(),opts)
+}
+
 module.exports = Router;

@@ -14,7 +14,7 @@
 
  ``` js
   var Router = require("express-generator-router");
-  router = Router();
+  router = Router(opts);
 
   app.use('/api/', router.router);
 
