@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/menpuji/express-generator-router#readme",
   "dependencies": {
-    "co": "^4.6.0",
-    "express": "^4.14.0"
+    "co": "^4.6.0"
   }
 }
