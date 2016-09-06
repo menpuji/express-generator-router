@@ -26,7 +26,7 @@ function asyncRouter(router,pararm) {
   function addMethod(method) {
     ret[method] = function(path, handlerGenerator) {
       router[method](path, function(req, res, next) {
-        co.wrap(handlerGenerator)(req, res, next).catch(pararm.catchhandler(res));
+        co.wrap(handlerGenerator)(req, res, next).catch(pararm.errorhandler(res));
       });
     };
   }
@@ -37,13 +37,14 @@ function asyncRouter(router,pararm) {
 }
 
 // var router = asyncRouter(express.Router());
-var opts = {
-    catchhandler:forwardError
+var defaultOpts = {
+    errorhandler:forwardError
   }
 }
 
 var Router = function(pararms){
-  var opts = pararms;
+  var opts = {};
+  opts.errorhandler = pararms.errorhandler || defaultOpts.errorhandler;
   return asyncRouter(express.Router(),opts)
 }
 
