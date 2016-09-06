@@ -28,8 +28,8 @@ function asyncRouter(router,pararm) {
       router[method](path, function(req, res, next) {
         co.wrap(handlerGenerator)(req, res, next).catch(pararm.errorhandler(res));
       });
-    };
-  }
+      }};
+
   addMethod('get');
   addMethod('put');
   addMethod('post');
@@ -38,8 +38,7 @@ function asyncRouter(router,pararm) {
 
 // var router = asyncRouter(express.Router());
 var defaultOpts = {
-    errorhandler:forwardError
-  }
+  errorhandler:forwardError
 }
 
 var Router = function(pararms){
